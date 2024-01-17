@@ -50,20 +50,4 @@ public class PriceRepository {
         }
         throw new RuntimeException("Price with ID " + priceId + " not found");
     }
-
-    // Method to delete a price for a ticket
-    public void deletePrice(int priceId) {
-        String query = "DELETE FROM Prices " +
-                       "WHERE PriceId = ?";
-
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, priceId);
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException sqlException) {
-            throw new RuntimeException(sqlException);
-        }
-    }
 }

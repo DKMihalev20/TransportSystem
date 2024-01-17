@@ -11,9 +11,4 @@ public class PriceService {
     public void createPrice(double price) {
         priceRepository.createPrice(price);
     }
-
-    public void deletePrice(int priceId) {
-        priceRepository.deletePrice(priceId);
-    }
-
 }

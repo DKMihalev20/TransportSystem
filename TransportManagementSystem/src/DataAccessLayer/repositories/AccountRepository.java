@@ -39,6 +39,41 @@ public class AccountRepository {
         }
     }
 
+    public Account getAccountByFirstNameAndLastName(String firstName, String lastName) {
+        String query = "SELECT Id, FirstName, LastName, Email, Username, Password " +
+                       "FROM Accounts " +
+                       "WHERE FirstName = ? " +
+                       "AND LastName = ?";
+
+        try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+            // Set parameters for the PreparedStatement
+            preparedStatement.setString(1, firstName);
+            preparedStatement.setString(2, lastName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // Check if a matching account is found
+                if (resultSet.next()) {
+                    Account account = new Account();
+                    // Populate the Account object with data from the ResultSet
+                    account.setId(resultSet.getInt(1));
+                    account.setFirstName(resultSet.getString(2));
+                    account.setLastName(resultSet.getString(3));
+                    account.setEmail(resultSet.getString(4));
+                    account.setUsername(resultSet.getString(5));
+                    account.setPassword(resultSet.getString(6));
+
+                    return account;
+                }
+            }
+        } catch (SQLException sqlException) {
+            // Handle SQL exceptions by wrapping and rethrowing as a runtime exception
+            throw new RuntimeException(sqlException);
+        }
+
+        // Return null if no account is found with the specified FirstName and LastName
+        return null;
+    }
+
     public List<Account> getAccountByUsernameAndPassword() {
         List<Account> accounts = new ArrayList<>();
 

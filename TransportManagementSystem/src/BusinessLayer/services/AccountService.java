@@ -14,6 +14,10 @@ public class AccountService {
         accountRepository.addAccount(account);
     }
 
+    public Account getAccountByFirstNameAndLastName(String firstName, String lastName) {
+        return accountRepository.getAccountByFirstNameAndLastName(firstName, lastName);
+    }
+
     public List<Account> getAllAccountsByUsernameAndPassword() {
         return accountRepository.getAccountByUsernameAndPassword();
     }

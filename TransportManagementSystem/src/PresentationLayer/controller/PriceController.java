@@ -27,17 +27,8 @@ public class PriceController {
         }
 
         double price = scanner.nextDouble();
+        priceService.createPrice(price);
+
         return price;
-    }
-
-    public void deletePriceMenu() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the PriceId to delete: ");
-        int priceId = scanner.nextInt();
-
-        priceService.deletePrice(priceId);
-
-        System.out.println("Price deleted successfully");
     }
 }

@@ -1,19 +1,31 @@
 package PresentationLayer.controller;
 
+import BusinessLayer.services.AccountService;
 import BusinessLayer.services.TicketService;
+import DataAccessLayer.models.Account;
+import PresentationLayer.menus.BookTicketMenu;
 import PresentationLayer.menus.TicketMenu;
 import java.util.Scanner;
 
 public class TicketController {
     private final TicketService ticketService = new TicketService();
     private final PriceController priceController = new PriceController();
+    private final AccountService accountService = new AccountService();
 
     public TicketController() {
 
     }
 
+    public void getBookTicketMenu() {
+        BookTicketMenu.bookTicketMenu();
+    }
+
     public void getTicketMenu() {
         TicketMenu.ticketMenu();
+    }
+
+    public void viewAllTickets() {
+        ticketService.viewAllTickets();
     }
     public void createTicketMenu() {
         Scanner scanner = new Scanner(System.in);
@@ -38,9 +50,16 @@ public class TicketController {
         // Get the priceId based on the entered price
         int priceId = ticketService.getPriceIdByPrice(price);
 
-        int ticketId = ticketService.createTicket(passengerFirstName, passengerLastName, arrivalCityId, departureCityId, priceId);
+        Account account = accountService.getAccountByFirstNameAndLastName(passengerFirstName, passengerLastName);
+        int accountId = account.getId();
 
+        int ticketId = ticketService.createTicket(passengerFirstName, passengerLastName, arrivalCityId, departureCityId, accountId, priceId);
+
+        System.out.println();
         System.out.println("Ticket created successfully with ID: " + ticketId);
+
+        System.out.println();
+        getBookTicketMenu();
     }
 
 
@@ -61,14 +80,12 @@ public class TicketController {
         String departureCityName = scanner.nextLine();
         int departureCityId = ticketService.getCityIdByName(departureCityName);
 
-        priceController.deletePriceMenu();
-
         ticketService.deleteTicket(passengerFirstName, passengerLastName, arrivalCityId, departureCityId);
 
+        System.out.println();
         System.out.println("Ticket deleted successfully");
-    }
 
-    public void viewAllAvailableTickets() {
-        ticketService.viewAllAvailableTickets();
+        System.out.println();
+        getBookTicketMenu();
     }
 }

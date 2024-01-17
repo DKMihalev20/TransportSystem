@@ -14,7 +14,7 @@ public class TicketMenu {
         PriceController priceController = new PriceController();
 
         System.out.println();
-        System.out.println("1. View all available tickets");
+        System.out.println("1. View all booked tickets");
         System.out.println("2. Book a ticket");
         System.out.println("3. Back");
 
@@ -23,7 +23,7 @@ public class TicketMenu {
 
         switch (choice) {
             case 1 -> {
-                ticketController.viewAllAvailableTickets();
+                ticketController.viewAllTickets();
             }
 
             case 2 -> {

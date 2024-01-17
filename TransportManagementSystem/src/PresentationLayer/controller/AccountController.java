@@ -86,6 +86,8 @@ public class AccountController {
         accountService.updatePassword(newPassword, username);
 
         System.out.println("Your new account now has a password: " + newPassword);
+
+        getStart();
     }
 
     public void deleteAccount(String username, String password) {

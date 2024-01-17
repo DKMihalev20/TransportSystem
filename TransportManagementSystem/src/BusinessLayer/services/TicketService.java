@@ -18,8 +18,8 @@ public class TicketService {
 
     }
 
-    public int createTicket(String passengerFirstName, String passengerLastName, int arrivalCityId, int departureCityId, int priceId) {
-        return ticketRepository.createTicket(passengerFirstName, passengerLastName, arrivalCityId, departureCityId);
+    public int createTicket(String passengerFirstName, String passengerLastName, int arrivalCityId, int departureCityId, int accountId, int priceId) {
+        return ticketRepository.createTicket(passengerFirstName, passengerLastName, arrivalCityId, departureCityId, accountId, priceId);
     }
 
     public int getCityIdByName(String cityName) {
@@ -34,7 +34,7 @@ public class TicketService {
         ticketRepository.deleteTicket(passengerFirstName, passengerLastName, arrivalCityId, departureCityId);
     }
 
-    public void viewAllAvailableTickets() {
+    public void viewAllTickets() {
         List<Ticket> ticketList = ticketRepository.getTickets();
 
         if (ticketList.isEmpty()) {
@@ -43,6 +43,8 @@ public class TicketService {
         else {
             for (Ticket ticket : ticketList) {
                 System.out.println("\n| Number of ticket: " + ticket.getTicketId());
+                System.out.println("| Passenger's first name: " + ticket.getPassengerFirstName());
+                System.out.println("| Passenger's last name: " + ticket.getPassengerLastName());
                 System.out.println("| Arrival city: " + CityService.getCityById(ticket.getArrivalCityId()));
                 System.out.println("| Departure city: " + CityService.getCityById(ticket.getDepartureCityId()));
                 System.out.println("| Price: " + PriceRepository.getPriceById(ticket.getPriceId()));

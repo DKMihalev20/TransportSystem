@@ -14,9 +14,9 @@ public class TicketRepository {
     }
 
     // Method to create a new ticket and get the generated ticketId
-    public int createTicket(String passengerFirstName, String passengerLastName, int arrivalCityId, int departureCityId) {
-        String query = "INSERT INTO Tickets (PassengerFirstName, PassengerLastName, ArrivalCityId, DepartureCityId) " +
-                       "VALUES (?, ?, ?, ?)";
+    public int createTicket(String passengerFirstName, String passengerLastName, int arrivalCityId, int departureCityId, int accountId, int priceId) {
+        String query = "INSERT INTO Tickets (PassengerFirstName, PassengerLastName, ArrivalCityId, DepartureCityId, AccountId, PriceId) " +
+                       "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -25,6 +25,8 @@ public class TicketRepository {
             preparedStatement.setString(2, passengerLastName);
             preparedStatement.setInt(3, arrivalCityId);
             preparedStatement.setInt(4, departureCityId);
+            preparedStatement.setInt(5, accountId);
+            preparedStatement.setInt(6, priceId);
 
             int affectedRows = preparedStatement.executeUpdate();
 

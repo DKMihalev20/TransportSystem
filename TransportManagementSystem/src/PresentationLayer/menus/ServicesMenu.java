@@ -14,7 +14,7 @@ public class ServicesMenu {
         TicketController ticketController = new TicketController();
 
         System.out.println();
-        System.out.println("1. View all cities");
+        System.out.println("1. View all possible cities");
         System.out.println("2. Tickets");
         System.out.println("3. Back");
 
